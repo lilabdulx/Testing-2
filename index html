@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter for Every Moment</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #letter-content { margin-top: 20px; }
+        .language-button { margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1 id="title">A Letter for Every Moment</h1>
+
+    <div id="letter-content">
+        <p id="letter-text">My Love, if you're reading this, it means we just became parents. Alhamdulillah...</p>
+    </div>
+
+    <button class="language-button" onclick="toggleLanguage()">Switch to Sylheti Bangla</button>
+
+    <script>
+        let englishLetter = "My Love, if you're reading this, it means we just became parents. Alhamdulillah...";
+        let sylhetiLetter = "আমার প্রিয়, তুমি যদি এটা পড়ছো, তাহলে মানে আমাদের প্রথম সন্তান এসেছে। আলহামদুলিল্লাহ...";
+
+        let isEnglish = true;
+
+        function toggleLanguage() {
+            if (isEnglish) {
+                document.getElementById('letter-text').innerText = sylhetiLetter;
+                document.querySelector('.language-button').innerText = "Switch to English";
+            } else {
+                document.getElementById('letter-text').innerText = englishLetter;
+                document.querySelector('.language-button').innerText = "Switch to Sylheti Bangla";
+            }
+            isEnglish = !isEnglish;
+        }
+    </script>
+
+</body>
+</html>
