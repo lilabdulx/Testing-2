@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +14,9 @@
         }
         .letter-container {
             margin-top: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         .letter {
             display: inline-block;
@@ -26,9 +28,29 @@
             font-size: 18px;
             font-weight: bold;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            width: 200px;
         }
-        .letter:hover {
-            background-color: #e0e0e0;
+        /* Different Hover Effects */
+        .letter.hvr-grow:hover {
+            transform: scale(1.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .letter.hvr-shrink:hover {
+            transform: scale(0.9);
+            transition: all 0.3s ease-in-out;
+        }
+        .letter.hvr-rotate:hover {
+            transform: rotate(10deg);
+            transition: all 0.3s ease-in-out;
+        }
+        .letter.hvr-shadow:hover {
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+        }
+        .letter.hvr-color-change:hover {
+            background-color: #007BFF;
+            color: white;
+            transition: all 0.3s ease-in-out;
         }
         .popup {
             display: none;
@@ -73,6 +95,15 @@
         .toggle-button:hover {
             background-color: #0056b3;
         }
+        .column-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .column {
+            width: 48%;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -82,22 +113,23 @@
     <button class="toggle-button" onclick="toggleLanguage()">Switch to Sylheti Bangla</button>
 
     <div class="letter-container">
+        <!-- Use different hover classes for different letters -->
         <div class="letter hvr-grow" onclick="openPopup('first-child')">👶 Open When We Have Our First Child</div>
-        <div class="letter hvr-grow" onclick="openPopup('wedding')">💍 Open On Our Wedding Day</div>
-        <div class="letter hvr-grow" onclick="openPopup('sick')">🤒 Open When You're Feeling Sick</div>
-        <div class="letter hvr-grow" onclick="openPopup('sad')">😢 Open When You're Feeling Sad</div>
-        <div class="letter hvr-grow" onclick="openPopup('anniversary')">❤️ Open On Our Anniversary</div>
+        <div class="letter hvr-shrink" onclick="openPopup('wedding')">💍 Open On Our Wedding Day</div>
+        <div class="letter hvr-rotate" onclick="openPopup('sick')">🤒 Open When You're Feeling Sick</div>
+        <div class="letter hvr-shadow" onclick="openPopup('sad')">😢 Open When You're Feeling Sad</div>
+        <div class="letter hvr-color-change" onclick="openPopup('anniversary')">❤️ Open On Our Anniversary</div>
         <!-- 10 More "Open When..." Letters -->
         <div class="letter hvr-grow" onclick="openPopup('happy')">😊 Open When You're Happy</div>
-        <div class="letter hvr-grow" onclick="openPopup('angry')">😡 Open When You're Feeling Angry</div>
-        <div class="letter hvr-grow" onclick="openPopup('travel')">🌍 Open When We're Traveling Together</div>
-        <div class="letter hvr-grow" onclick="openPopup('birthday')">🎂 Open On Your Birthday</div>
-        <div class="letter hvr-grow" onclick="openPopup('surprise')">🎁 Open When I Have a Surprise for You</div>
+        <div class="letter hvr-shrink" onclick="openPopup('angry')">😡 Open When You're Feeling Angry</div>
+        <div class="letter hvr-rotate" onclick="openPopup('travel')">🌍 Open When We're Traveling Together</div>
+        <div class="letter hvr-shadow" onclick="openPopup('birthday')">🎂 Open On Your Birthday</div>
+        <div class="letter hvr-color-change" onclick="openPopup('surprise')">🎁 Open When I Have a Surprise for You</div>
         <div class="letter hvr-grow" onclick="openPopup('celebration')">🎉 Open When We Have Something to Celebrate</div>
-        <div class="letter hvr-grow" onclick="openPopup('tough')">💪 Open When You're Going Through a Tough Time</div>
-        <div class="letter hvr-grow" onclick="openPopup('excited')">😄 Open When You're Feeling Excited</div>
-        <div class="letter hvr-grow" onclick="openPopup('hope')">🌈 Open When You Need Hope</div>
-        <div class="letter hvr-grow" onclick="openPopup('joy')">😄 Open When You Need Joy</div>
+        <div class="letter hvr-shrink" onclick="openPopup('tough')">💪 Open When You're Going Through a Tough Time</div>
+        <div class="letter hvr-rotate" onclick="openPopup('excited')">😄 Open When You're Feeling Excited</div>
+        <div class="letter hvr-shadow" onclick="openPopup('hope')">🌈 Open When You Need Hope</div>
+        <div class="letter hvr-color-change" onclick="openPopup('joy')">😄 Open When You Need Joy</div>
     </div>
 
     <div id="popup" class="popup">
@@ -125,33 +157,13 @@
             let content = '';
             if (currentLetter === 'first-child') {
                 content = isSylheti ?
-                "<h2>👶 প্রথম বাচ্চা হওয়ার পর খোলার চিঠি</h2><p>আমার প্রিয়, আজ আমরা প্যারেন্টস হলাম। আল্লাহ আমাদের সন্তান দিয়েছে, এবং আমি প্রার্থনা করি যেন আমরা তাকে সঠিকভাবে বড় করি। <br><br> **হাদীস:** নবী ﷺ বলেছেন, 'একজন পিতার জন্য তার সন্তানের জন্য সবচেয়ে ভাল উপহার হলো সুন্দর আচরণ।' (তিরমিজি ৪৯৭৭)।<br><br> আল্লাহ আমাদের সন্তানকে সুন্দরভাবে বড় হতে সাহায্য করুন।" :
-                "<h2>👶 Open When We Have Our First Child</h2><p>My love, today we become parents. Allah has blessed us with a child, and I pray that we raise them with righteousness. <br><br> **Hadith:** The Prophet ﷺ said, 'The best gift a father can give his child is good manners.' (Tirmidhi 4977).<br><br> May we teach them love, patience, and the beauty of Islam together.</p>";
+                "<h2>👶 প্রথম বাচ্চা হওয়ার পর খোলার চিঠি</h2><div class='column-container'><div class='column'><p>আমার প্রিয়, আজ আমরা প্যারেন্টস হলাম। আল্লাহ আমাদের সন্তান দিয়েছে, এবং আমি প্রার্থনা করি যেন আমরা তাকে সঠিকভাবে বড় করি।</p><p><strong>হাদীস:</strong><br> নবী ﷺ বলেছেন, 'একজন পিতার জন্য তার সন্তানের জন্য সবচেয়ে ভাল উপহার হলো সুন্দর আচরণ।' (তিরমিজি ৪৯৭৭).</p></div><div class='column'><p>আল্লাহ আমাদের সন্তানকে সুন্দরভাবে বড় হতে সাহায্য করুন।</p></div></div>" :
+                "<h2>👶 Open When We Have Our First Child</h2><div class='column-container'><div class='column'><p>My love, today we become parents. Allah has blessed us with a child, and I pray that we raise them with righteousness.</p><p><strong>Hadith:</strong><br> The Prophet ﷺ said, 'The best gift a father can give his child is good manners.' (Tirmidhi 4977).</p></div><div class='column'><p>May Allah help us raise our child with beauty and love.</p></div></div>";
             } else if (currentLetter === 'wedding') {
                 content = isSylheti ?
-                "<h2>💍 বিয়ের দিন খোলার চিঠি</h2><p>আলহামদুলিল্লাহ, আজ আমরা স্বামী ও স্ত্রী হিসেবে যাত্রা শুরু করছি। আমি প্রতিজ্ঞা করছি যে আমি তোমাকে সবসময় ভালবাসব এবং তোমার সুরক্ষা করব। <br><br> **কুরআন:** 'এবং তাঁর নিদর্শন হল, তিনি তোমাদের মধ্যে থেকে তোমাদের সঙ্গী তৈরি করেছেন, যাতে তোমরা তাদের সাথে শান্তিতে বাস করতে পারো, এবং তিনি তোমাদের মধ্যে ভালোবাসা ও দয়া স্থাপন করেছেন।' (সূরা রূম ৩০:২১)।<br><br> আল্লাহ আমাদের বিবাহকে আশীর্বাদ করুন এবং আমাদের হৃদয় একসাথে রাখুন।" :
-                "<h2>💍 Open On Our Wedding Day</h2><p>Alhamdulillah, today we start our journey as husband and wife. I promise to love and protect you always. <br><br> **Qur'an:** 'And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between you.' (Surah Ar-Rum 30:21).<br><br> May Allah bless our marriage and keep our hearts united forever.</p>";
+                "<h2>💍 বিয়ের দিন খোলার চিঠি</h2><div class='column-container'><div class='column'><p>আলহামদুলিল্লাহ, আজ আমরা স্বামী ও স্ত্রী হিসেবে যাত্রা শুরু করছি। আমি প্রতিজ্ঞা করছি যে আমি তোমাকে সবসময় ভালবাসব এবং তোমার সুরক্ষা করব।</p><p><strong>কুরআন:</strong><br> 'এবং তাঁর নিদর্শন হল, তিনি তোমাদের মধ্যে থেকে তোমাদের সঙ্গী তৈরি করেছেন, যাতে তোমরা তাদের সাথে শান্তিতে বাস করতে পারো, এবং তিনি তোমাদের মধ্যে ভালোবাসা ও দয়া স্থাপন করেছেন।' (সূরা রূম ৩০:২১).</p></div><div class='column'><p>আল্লাহ আমাদের বিবাহকে আশীর্বাদ করুন এবং আমাদের হৃদয় একসাথে রাখুন।</p></div></div>" :
+                "<h2>💍 Open On Our Wedding Day</h2><div class='column-container'><div class='column'><p>Alhamdulillah, today we start our journey as husband and wife. I promise to love and protect you always.</p><p><strong>Qur'an:</strong><br> 'And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between you.' (Surah Ar-Rum 30:21).</p></div><div class='column'><p>May Allah bless our marriage and keep our hearts united forever.</p></div></div>";
             } else if (currentLetter === 'sick') {
                 content = isSylheti ?
-                "<h2>🤒 অসুস্থ হলে খোলার চিঠি</h2><p>আমার প্রিয়, আমি জানি তুমি ভালো অনুভব করছো না, কিন্তু মনে রেখো, আল্লাহ তাদের পরীক্ষায় ফেলেন যাদের তিনি ভালোবাসেন। <br><br> **হাদীস:** নবী ﷺ বলেছেন, 'যে কোন মুসলমান কোনো কষ্ট পায়, আল্লাহ তার পাপগুলো মুছে দেন যেমন একটি গাছ তার পাতা ঝরে ফেলে।' (বুখারি ৫৬৪১)।<br><br> ভালো বিশ্রাম নাও, ইনশাআল্লাহ, তুমি দ্রুত সুস্থ হয়ে উঠবে।" :
-                "<h2>🤒 Open When You're Feeling Sick</h2><p>My love, I know you're not feeling well, but remember, Allah tests those He loves. <br><br> **Hadith:** The Prophet ﷺ said, 'No Muslim is afflicted with any harm but that Allah will remove his sins as a tree sheds its leaves.' (Bukhari 5641).<br><br> Rest well, and InshaAllah, you'll be better soon.</p>";
-            } 
-            // Add more letters here as needed, with translations in Sylheti if required...
-
-            document.getElementById('letter-content').innerHTML = content + '<br><button class="no-btn hvr-bounce-to-left" onclick="closeLetter()">Close</button>';
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('letter-content').style.display = 'block';
-        }
-
-        function closeLetter() {
-            document.getElementById('letter-content').style.display = 'none';
-        }
-
-        function toggleLanguage() {
-            isSylheti = !isSylheti;
-            document.querySelector('.toggle-button').textContent = isSylheti ? "Switch to English" : "Switch to Sylheti Bangla";
-        }
-    </script>
-
-</body>
-</html>
+                "<h2>🤒 অসুস্থ হলে খোলার চিঠি</h2><div class='column-container'><div class='column'><p>আমার প্রিয়, আমি জানি তুমি ভালো অনুভব করছো না, কিন্তু মনে রেখো, আল্লাহ তাদের পরীক্ষায় ফেলেন যাদের তিনি ভালোবাসেন।</p><p><strong>হাদীস:</strong><br> নবী ﷺ বলেছেন, 'যে কোন মুসলমান কোনো কষ্ট পায়, আল্লাহ তার পাপগুলো মুছে দেন যেমন একটি গাছ তার পাতা ঝরে ফেলে।' (বুখারি ৫৬৪১).</p></div><div class='column'><p>ভালো বিশ্রাম নাও, ইনশাআল্লাহ, তুমি দ্রুত সুস্থ হয়ে উঠবে।</p></div></div>" :
+                "<h2>🤒 Open When You're Feeling Sick</h2><div class='column-container'><div class='column'><p>My love, I know you're not feeling well, but remember, Allah tests those He loves.</
