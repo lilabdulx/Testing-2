@@ -5,33 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Letter for Every Moment</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        #letter-content { margin-top: 20px; }
-        .language-button { margin-top: 20px; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        #letter-content {
+            margin-top: 20px;
+            font-size: 1.2em;
+            animation: fadeIn 1s ease-out;
+        }
+        .language-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s;
+        }
+        .language-button:hover {
+            background-color: #45a049;
+        }
+        .emoji {
+            font-size: 2em;
+            margin-top: 10px;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
-    <h1 id="title">A Letter for Every Moment</h1>
+    <h1>A Letter for Every Moment</h1>
 
     <div id="letter-content">
         <p id="letter-text">My Love, if you're reading this, it means we just became parents. Alhamdulillah...</p>
+        <div id="emoji" class="emoji">👶</div>
     </div>
 
     <button class="language-button" onclick="toggleLanguage()">Switch to Sylheti Bangla</button>
 
     <script>
-        let englishLetter = "My Love, if you're reading this, it means we just became parents. Alhamdulillah...";
-        let sylhetiLetter = "আমার প্রিয়, তুমি যদি এটা পড়ছো, তাহলে মানে আমাদের প্রথম সন্তান এসেছে। আলহামদুলিল্লাহ...";
+        let englishLetter = "My Love, if you're reading this, it means we just became parents. Alhamdulillah, our little one is finally here. This is one of the greatest blessings Allah has given us, and I can’t put into words how grateful I am to be on this journey with you. Allah says in the Qur'an: \n\n'Wealth and children are [but] adornment of the worldly life.' (Surah Al-Kahf 18:46) \n\nThis ayah reminds us that our child is both a blessing and a test. Just like wealth, children make life beautiful, but they also come with responsibility. How we raise them will determine whether they bring us reward or regret in the akhirah. I know with you by my side, we will do our best to raise them with love, patience, and the guidance of Islam. \n\nI know things might feel overwhelming—the sleepless nights, the endless worries, the overwhelming love we already have for this little one. But you are not alone. I will be here, through every cry, every smile, every milestone. The Prophet ﷺ said: \n\n'When a person dies, his deeds come to an end except for three: A righteous child who prays for him, ongoing charity, or knowledge that benefits others.' (Sahih Muslim 1631) \n\nThis hadith is powerful because it reminds us that our child will be our sadaqah jariyah (continuous reward) if we raise them upon Islam. If they grow up to be righteous, their du'as will reach us even after we pass away. Our parenting is not just about this life—it’s an investment in the next life too. So I promise you, my love, that I will always be here—as a husband, as a father, and as your partner in raising our child with strong imaan. May Allah bless our little one with health, wisdom, and a heart full of love. And may He give us the strength to guide them on the right path. I love you, always.";
+        
+        let sylhetiLetter = "আমার প্রিয়, তুমি যদি এটা পড়ছো, তাহলে মানে আমাদের প্রথম সন্তান এসেছে। আলহামদুলিল্লাহ, আমাদের ছোট্ট শিশু অবশেষে এসেছে। এটি আল্লাহর সবচেয়ে বড় উপহারগুলোর একটি, এবং আমি ভাষায় প্রকাশ করতে পারি না কতটা কৃতজ্ঞ আমি তোমার সাথে এই যাত্রায় থাকতে। আল্লাহ বলেছেন কোরআনে: \n\n'ধন এবং সন্তান বিশ্বজগতের শোভা মাত্র।' (সূরা আল-কাহফ ১৮:৪৬) \n\nএই আয়াতটি আমাদের স্মরণ করিয়ে দেয় যে আমাদের সন্তান আমাদের জন্য একটি আশীর্বাদ এবং পরীক্ষাও। যেমন ধন, সন্তানরা জীবনকে সুন্দর করে, তবে তারা সাথে সাথে দায়িত্ব নিয়ে আসে। আমরা তাদের যেভাবে বড় করব তা পরকালেও আমাদের পুরস্কৃত বা দুঃখজনক হতে পারে। আমি জানি তুমি আমার পাশে থাকলে, আমরা তাদের প্রেম, ধৈর্য এবং ইসলামের নির্দেশনা সহ বড় করব। \n\nআমি জানি, মাঝে মাঝে অনেক কিছু একসাথে করতে হয়—ঘুমের অভাব, অগণিত উদ্বেগ, যে অতিরিক্ত ভালোবাসা আমরা ইতিমধ্যেই অনুভব করি। কিন্তু তুমি একা নও। আমি এখানে থাকব, প্রতিটি কান্না, প্রতিটি হাসি, প্রতিটি গুরুত্বপূর্ণ মুহূর্তে। নবী ﷺ বলেছেন: \n\n'যখন একজন মানুষ মারা যায়, তার কাজ শেষ হয়ে যায় তিনটি ব্যতীত: একটি নেক সন্তান যে তার জন্য দোয়া করে, অব্যাহত সাদাকা, অথবা এমন জ্ঞান যা অন্যদের উপকারে আসে।' (সহীহ মুসলিম ১৬৩১) \n\nএই হাদীসটি শক্তিশালী কারণ এটি আমাদের মনে করিয়ে দেয় যে আমাদের সন্তান আমাদের সাদাকা জারিয়া (অবিচ্ছিন্ন পুরস্কার) হবে যদি আমরা তাদের ইসলাম অনুসারে বড় করি। যদি তারা নেক হয়ে ওঠে, তাদের দোয়া আমাদের জন্য পৌঁছাবে এমনকি যখন আমরা এই পৃথিবী থেকে চলে যাব। আমাদের পিতামাতা হওয়া শুধুমাত্র এই জীবনের জন্য নয়—এটি পরকালেও একটি বিনিয়োগ। তাই আমি তোমাকে প্রতিশ্রুতি দিচ্ছি, প্রিয়, আমি সবসময় এখানে থাকব—একজন স্বামী, একজন বাবা এবং আমাদের সন্তানকে দৃঢ় ঈমান সহ বড় করার তোমার সঙ্গী। আল্লাহ আমাদের ছোট্ট সন্তানকে স্বাস্থ্য, জ্ঞান এবং ভালোবাসায় পরিপূর্ণ হৃদয় দান করুন। এবং আল্লাহ আমাদের তাদের সঠিক পথে পরিচালিত করার শক্তি দিন। আমি তোমাকে ভালোবাসি, চিরকাল।";
 
         let isEnglish = true;
 
         function toggleLanguage() {
             if (isEnglish) {
                 document.getElementById('letter-text').innerText = sylhetiLetter;
+                document.getElementById('emoji').innerText = "👶👨‍👩‍👧";
                 document.querySelector('.language-button').innerText = "Switch to English";
             } else {
                 document.getElementById('letter-text').innerText = englishLetter;
+                document.getElementById('emoji').innerText = "👶";
                 document.querySelector('.language-button').innerText = "Switch to Sylheti Bangla";
             }
             isEnglish = !isEnglish;
