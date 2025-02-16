@@ -4,104 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Letter for Every Moment</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            text-align: center;
+            padding: 20px;
         }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .toggle-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .letters-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .letter-card {
+            background: white;
+            width: 280px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        .letter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
-<body class="bg-gray-100 flex flex-col items-center min-h-screen p-6">
+<body>
 
-    <h1 class="text-4xl font-bold text-gray-900 mb-6">📜 A Letter for Every Moment</h1>
-    
-    <!-- Language Toggle -->
-    <button id="toggleLanguage" class="bg-blue-500 text-white px-4 py-2 rounded mb-6">
-        Switch to Sylheti Bangla
-    </button>
+    <h1 id="title">A Letter for Every Moment</h1>
+    <button class="toggle-btn" onclick="toggleLanguage()">Switch to Sylheti Bangla</button>
 
-    <!-- Letter List -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-4xl">
-        
-        <!-- Example Letter -->
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer fade-in"
-             onclick="confirmOpen('firstChildLetter')">
-            <span class="text-4xl">🍼</span>
-            <h2 class="text-xl font-semibold mt-2" data-en="Open When We Have Our First Child" data-bn="আমাদের প্রথম সন্তান হলে খুলুন">
-                Open When We Have Our First Child
-            </h2>
-        </div>
-
-    </div>
-
-    <!-- Confirmation Popup -->
-    <div id="confirmPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-            <p class="text-lg font-semibold mb-4">Are you sure you want to see this letter?</p>
-            <button onclick="openLetter()" class="bg-green-500 text-white px-4 py-2 rounded mr-2">Yes</button>
-            <button onclick="closePopup()" class="bg-red-500 text-white px-4 py-2 rounded">No</button>
-        </div>
-    </div>
-
-    <!-- Letter Content (Hidden by Default) -->
-    <div id="firstChildLetter" class="hidden fixed inset-0 bg-white p-6 overflow-auto">
-        <button onclick="closeLetter()" class="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded">Close</button>
-        <h2 class="text-3xl font-bold mb-4" data-en="Open When We Have Our First Child" data-bn="আমাদের প্রথম সন্তান হলে খুলুন">
-            Open When We Have Our First Child
-        </h2>
-        <p class="text-lg" data-en="
-            SubhanAllah, today we became parents. This is a huge blessing from Allah. 
-            The Prophet ﷺ said: 'When a man dies, his deeds come to an end except for three things: 
-            ongoing charity, beneficial knowledge, or a righteous child who prays for him.' (Sahih Muslim)
-            May our child be righteous and a source of sadaqah jariyah for us.
-        " 
-        data-bn="
-            সুবহানআল্লাহ, আজ আমরা পিতা-মাতা হলাম। এটি আল্লাহর একটি বিশাল নিয়ামত।
-            নবী ﷺ বলেছেন: 'যখন একজন মানুষ মারা যায়, তার আমল বন্ধ হয়ে যায় তিনটি ছাড়া:
-            চলমান দান, উপকারী জ্ঞান, বা একজন ধার্মিক সন্তান যে তার জন্য দোয়া করে।' (সহিহ মুসলিম)
-            আল্লাহ যেন আমাদের সন্তানকে ধার্মিক করেন এবং আমাদের জন্য সদাকাহ জারিয়াহ বানান।
-        ">
-            SubhanAllah, today we became parents. This is a huge blessing from Allah...
-        </p>
+    <div class="letters-container">
+        <div class="letter-card" onclick="showLetter('firstChild')">👶 Open When We Have Our First Child</div>
+        <div class="letter-card" onclick="showLetter('weddingDay')">💍 Open on Our Wedding Day</div>
+        <div class="letter-card" onclick="showLetter('hardDay')">💔 Open When You Have a Hard Day</div>
     </div>
 
     <script>
-        let currentLetter = "";
-
-        function confirmOpen(letterId) {
-            currentLetter = letterId;
-            document.getElementById('confirmPopup').classList.remove('hidden');
+        let isEnglish = true;
+        
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            document.getElementById("title").textContent = isEnglish ? "A Letter for Every Moment" : "প্রতিটি মুহুর্তের জন্য একটি চিঠি";
+            document.querySelector(".toggle-btn").textContent = isEnglish ? "Switch to Sylheti Bangla" : "ইংরেজিতে পরিবর্তন করুন";
         }
 
-        function openLetter() {
-            document.getElementById('confirmPopup').classList.add('hidden');
-            document.getElementById(currentLetter).classList.remove('hidden');
+        function showLetter(type) {
+            let letters = {
+                firstChild: {
+                    en: "Bismillah. Today, Allah has blessed us with a child. Raising them with love, patience, and the teachings of Islam is now our responsibility. The Prophet ﷺ said, 'The best gift a father can give his child is good manners.' [Tirmidhi] May we always be their role models.",
+                    bn: "বিসমিল্লাহ। আজ, আল্লাহ আমাদের একটি সন্তান দিয়েছেন। ভালোবাসা, ধৈর্য এবং ইসলামের শিক্ষা দিয়ে তাদের বড় করা এখন আমাদের দায়িত্ব। নবী ﷺ বলেছেন, 'বাবা তার সন্তানের জন্য সবচেয়ে বড় উপহার দিতে পারেন ভালো আচরণ।' [তিরমিজি] আমরা যেন সর্বদা তাদের আদর্শ হতে পারি।"
+                },
+                weddingDay: {
+                    en: "Alhamdulillah! Our journey together begins today. The Prophet ﷺ said, 'The best among you are those who are best to their wives.' [Tirmidhi] I promise to love, respect, and always remind you of Allah. Let's build a home filled with love and iman.",
+                    bn: "আলহামদুলিল্লাহ! আজ থেকে আমাদের যাত্রা শুরু। নবী ﷺ বলেছেন, 'তোমাদের মধ্যে সেরা হল তারা, যারা তাদের স্ত্রীদের প্রতি সর্বোত্তম আচরণ করে।' [তিরমিজি] আমি প্রতিশ্রুতি দিচ্ছি, আমি তোমাকে সর্বদা ভালোবাসব, সম্মান করব, এবং আল্লাহর স্মরণ করিয়ে দেব।"
+                },
+                hardDay: {
+                    en: "My love, remember that hardships are tests from Allah. The Qur'an says, 'Indeed, with hardship comes ease.' [94:6] No matter what you're going through, I'm here, and more importantly, Allah is always with you.",
+                    bn: "আমার প্রিয়, মনে রেখো যে কঠিন সময়গুলো আল্লাহর পরীক্ষা। কুরআনে বলা হয়েছে, 'নিশ্চয়ই, কষ্টের সাথে সহজিও আসে।' [৯৪:৬] তুমি যা-ই পার করছো, আমি আছি, এবং আরও গুরুত্বপূর্ণ, আল্লাহ সবসময় তোমার সাথে।"
+                }
+            };
+
+            let letterText = isEnglish ? letters[type].en : letters[type].bn;
+            
+            if (confirm("Are you sure you want to open this letter?")) {
+                alert(letterText);
+            }
         }
-
-        function closePopup() {
-            document.getElementById('confirmPopup').classList.add('hidden');
-        }
-
-        function closeLetter() {
-            document.getElementById(currentLetter).classList.add('hidden');
-        }
-
-        // Language Toggle
-        document.getElementById('toggleLanguage').addEventListener('click', function() {
-            const elements = document.querySelectorAll('[data-en]');
-            const isEnglish = this.textContent.includes('Sylheti Bangla');
-
-            elements.forEach(el => {
-                el.textContent = isEnglish ? el.getAttribute('data-bn') : el.getAttribute('data-en');
-            });
-
-            this.textContent = isEnglish ? "Switch to English" : "Switch to Sylheti Bangla";
-        });
-
     </script>
 
 </body>
