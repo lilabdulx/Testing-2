@@ -4,107 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Letter for Every Moment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="hover.css"> <!-- Hover.css Animations -->
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f5f5f5;
             text-align: center;
-            padding: 20px;
+            background-color: #f4f4f4;
         }
-
-        h1 {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 20px;
-            animation: fadeIn 1.5s ease-in-out;
+        .letter-container {
+            margin-top: 50px;
         }
-
-        .toggle-btn {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-
-        .letters-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .letter-card {
-            background: white;
-            width: 280px;
-            padding: 15px;
+        .letter {
+            display: inline-block;
+            background-color: white;
+            padding: 15px 30px;
+            margin: 10px;
             border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: slideUp 0.8s ease-in-out;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
         }
-
-        .letter-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        .letter:hover {
+            background-color: #e0e0e0;
         }
-
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s;
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .popup .yes-btn {
+            background-color: green;
+            color: white;
+        }
+        .popup .no-btn {
+            background-color: red;
+            color: white;
+        }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
     </style>
 </head>
 <body>
 
-    <h1 id="title">A Letter for Every Moment</h1>
-    <button class="toggle-btn" onclick="toggleLanguage()">Switch to Sylheti Bangla</button>
+    <h1>A Letter for Every Moment</h1>
 
-    <div class="letters-container">
-        <div class="letter-card" onclick="showLetter('firstChild')">👶 Open When We Have Our First Child</div>
-        <div class="letter-card" onclick="showLetter('weddingDay')">💍 Open on Our Wedding Day</div>
-        <div class="letter-card" onclick="showLetter('hardDay')">💔 Open When You Have a Hard Day</div>
+    <div class="letter-container">
+        <div class="letter hvr-grow" onclick="openPopup('first-child')">👶 Open When We Have Our First Child</div>
+        <div class="letter hvr-grow" onclick="openPopup('wedding')">💍 Open On Our Wedding Day</div>
+        <div class="letter hvr-grow" onclick="openPopup('sick')">🤒 Open When You're Feeling Sick</div>
+        <div class="letter hvr-grow" onclick="openPopup('sad')">😢 Open When You're Feeling Sad</div>
+        <div class="letter hvr-grow" onclick="openPopup('anniversary')">❤️ Open On Our Anniversary</div>
     </div>
 
+    <div id="popup" class="popup">
+        <p id="popup-text">Are you sure you want to see this letter?</p>
+        <button class="yes-btn hvr-bounce-to-right" onclick="showLetter()">Yes</button>
+        <button class="no-btn hvr-bounce-to-left" onclick="closePopup()">No</button>
+    </div>
+
+    <div id="letter-content" class="popup"></div>
+
     <script>
-        let isEnglish = true;
-        
-        function toggleLanguage() {
-            isEnglish = !isEnglish;
-            document.getElementById("title").textContent = isEnglish ? "A Letter for Every Moment" : "প্রতিটি মুহুর্তের জন্য একটি চিঠি";
-            document.querySelector(".toggle-btn").textContent = isEnglish ? "Switch to Sylheti Bangla" : "ইংরেজিতে পরিবর্তন করুন";
+        let currentLetter = '';
+
+        function openPopup(letter) {
+            currentLetter = letter;
+            document.getElementById('popup').style.display = 'block';
         }
 
-        function showLetter(type) {
-            let letters = {
-                firstChild: {
-                    en: "Bismillah. Today, Allah has blessed us with a child. Raising them with love, patience, and the teachings of Islam is now our responsibility. The Prophet ﷺ said, 'The best gift a father can give his child is good manners.' [Tirmidhi] May we always be their role models.",
-                    bn: "বিসমিল্লাহ। আজ, আল্লাহ আমাদের একটি সন্তান দিয়েছেন। ভালোবাসা, ধৈর্য এবং ইসলামের শিক্ষা দিয়ে তাদের বড় করা এখন আমাদের দায়িত্ব। নবী ﷺ বলেছেন, 'বাবা তার সন্তানের জন্য সবচেয়ে বড় উপহার দিতে পারেন ভালো আচরণ।' [তিরমিজি] আমরা যেন সর্বদা তাদের আদর্শ হতে পারি।"
-                },
-                weddingDay: {
-                    en: "Alhamdulillah! Our journey together begins today. The Prophet ﷺ said, 'The best among you are those who are best to their wives.' [Tirmidhi] I promise to love, respect, and always remind you of Allah. Let's build a home filled with love and iman.",
-                    bn: "আলহামদুলিল্লাহ! আজ থেকে আমাদের যাত্রা শুরু। নবী ﷺ বলেছেন, 'তোমাদের মধ্যে সেরা হল তারা, যারা তাদের স্ত্রীদের প্রতি সর্বোত্তম আচরণ করে।' [তিরমিজি] আমি প্রতিশ্রুতি দিচ্ছি, আমি তোমাকে সর্বদা ভালোবাসব, সম্মান করব, এবং আল্লাহর স্মরণ করিয়ে দেব।"
-                },
-                hardDay: {
-                    en: "My love, remember that hardships are tests from Allah. The Qur'an says, 'Indeed, with hardship comes ease.' [94:6] No matter what you're going through, I'm here, and more importantly, Allah is always with you.",
-                    bn: "আমার প্রিয়, মনে রেখো যে কঠিন সময়গুলো আল্লাহর পরীক্ষা। কুরআনে বলা হয়েছে, 'নিশ্চয়ই, কষ্টের সাথে সহজিও আসে।' [৯৪:৬] তুমি যা-ই পার করছো, আমি আছি, এবং আরও গুরুত্বপূর্ণ, আল্লাহ সবসময় তোমার সাথে।"
-                }
-            };
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
 
-            let letterText = isEnglish ? letters[type].en : letters[type].bn;
-            
-            if (confirm("Are you sure you want to open this letter?")) {
-                alert(letterText);
+        function showLetter() {
+            let content = '';
+            if (currentLetter === 'first-child') {
+                content = "<h2>👶 Open When We Have Our First Child</h2><p>My love, today we become parents. Allah has blessed us with a child, and I pray that we raise them with righteousness. <br><br> **Hadith:** The Prophet ﷺ said, 'The best gift a father can give his child is good manners.' (Tirmidhi 4977).<br><br> May we teach them love, patience, and the beauty of Islam together.</p>";
+            } else if (currentLetter === 'wedding') {
+                content = "<h2>💍 Open On Our Wedding Day</h2><p>Alhamdulillah, today we start our journey as husband and wife. I promise to love and protect you always. <br><br> **Qur'an:** 'And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them, and He has put love and mercy between you.' (Surah Ar-Rum 30:21).<br><br> May Allah bless our marriage and keep our hearts united forever.</p>";
+            } else if (currentLetter === 'sick') {
+                content = "<h2>🤒 Open When You're Feeling Sick</h2><p>My love, I know you're not feeling well, but remember, Allah tests those He loves. <br><br> **Hadith:** The Prophet ﷺ said, 'No Muslim is afflicted with any harm but that Allah will remove his sins as a tree sheds its leaves.' (Bukhari 5641).<br><br> Rest well, and InshaAllah, you'll be better soon.</p>";
+            } else if (currentLetter === 'sad') {
+                content = "<h2>😢 Open When You're Feeling Sad</h2><p>My love, sadness is temporary, and Allah is always near. <br><br> **Qur'an:** 'Do not lose hope nor be sad. You will surely be victorious if you are true believers.' (Surah Al-Imran 3:139).<br><br> I'm here for you always, and remember, every hardship comes with ease.</p>";
+            } else if (currentLetter === 'anniversary') {
+                content = "<h2>❤️ Open On Our Anniversary</h2><p>My love, another year together, and I'm grateful for every moment. <br><br> **Hadith:** The Prophet ﷺ said, 'The best of you are those who are best to their wives.' (Tirmidhi 3895).<br><br> May Allah bless us with many more happy years ahead.</p>";
             }
+            
+            document.getElementById('letter-content').innerHTML = content + '<br><button class="no-btn hvr-bounce-to-left" onclick="closeLetter()">Close</button>';
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('letter-content').style.display = 'block';
+        }
+
+        function closeLetter() {
+            document.getElementById('letter-content').style.display = 'none';
         }
     </script>
 
